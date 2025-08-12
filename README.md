@@ -7,7 +7,8 @@
     - *if you can find a better link... this one hosted on IPFS doesn't seem to be loading (not a great sign LOL)*
 
 **Ink! Contracts**
-- todo
+- [Ink! w/ hardhat guide](https://use.ink/tutorials/ethereum-compatibility/hardhat-deployment/)
+- [Setup environment for Ink! (not EVM)](https://use.ink/docs/v6/getting-started/setup/)
 
 **DRM Papers**
 - todo
