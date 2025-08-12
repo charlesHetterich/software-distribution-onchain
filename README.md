@@ -1,6 +1,24 @@
 # software-distribution-onchain
 
-### Resources / Papers
+TODO
+
+## Motivation
+
+TODO
+
+### Security Risk Assessment
+
+![Risk Assessment Comparison](/static/bpmn.svg)
+
+## Quick Start
+
+TODO
+
+## Limitations and Future Development
+
+TODO
+
+## Resources / Papers
 **Crust (storage)**
 - [Crust Economy Paper](https://crust.network/download/ecowhitepaper_en.pdf)
 - [Crust Tech Paper](https://ipfsgw.live/ipfs/QmP9WqDYhreSuv5KJWzWVKZXJ4hc7y9fUdwC4u23SmqL6t)
@@ -18,7 +36,3 @@ High Credibility](https://ietresearch.onlinelibrary.wiley.com/doi/pdf/10.1049/cj
 
 **Obfuscation / Packing Papers**
 - [UPX (packing)](https://github.com/upx/upx?tab=readme-ov-file)
-
-### Security Risk Assessment
-
-![Risk Assessment Comparison](/static/bpmn.svg)
