@@ -11,7 +11,10 @@
 - [Setup environment for Ink! (not EVM)](https://use.ink/docs/v6/getting-started/setup/)
 
 **DRM Papers**
-- todo
+- **2024 |** [Secure Rights (DRM on blockchain)](https://arxiv.org/abs/2403.06094)
+    - doesn't mention NFT's ?
+- **2018 |** [Secure DRM Scheme Based on Blockchain with
+High Credibility](https://ietresearch.onlinelibrary.wiley.com/doi/pdf/10.1049/cje.2018.07.003)
 
 **Obfuscation / Packing Papers**
 - [UPX (packing)](https://github.com/upx/upx?tab=readme-ov-file)
