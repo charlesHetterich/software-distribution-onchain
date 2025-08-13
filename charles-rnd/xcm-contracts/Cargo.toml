@@ -25,9 +25,6 @@ std = [
 ink-as-dependency = []
 e2e-tests = []
 
-[package.metadata.ink-lang]
-abi = "sol"
-
 [lints.rust.unexpected_cfgs]
 level = "warn"
 check-cfg = [

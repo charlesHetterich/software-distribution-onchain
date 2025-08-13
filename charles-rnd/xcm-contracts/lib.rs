@@ -12,8 +12,8 @@ mod ink_library {
     #[ink(storage)]
     pub struct InkLibrary {}
 
-    type Bytes = ink::sol::DynBytes;
-    type Bytes32 = ink::sol::FixedBytes<32>;
+    type Bytes = Vec<u8>; //ink::sol::DynBytes;
+    type Bytes32 = [u8; 32]; //ink::sol::FixedBytes<32>;
 
     impl InkLibrary {
         /// Constructor that initializes the `bool` value to the given `init_value`.
@@ -31,7 +31,7 @@ mod ink_library {
             let mut transfer_assets = Vec::new();
             transfer_assets.push(AssetTransferFilter::Teleport(Wild(AllCounted(1))));
             let remote_xcm = Xcm::<()>::builder_unsafe()
-                .deposit_asset(AllCounted(1), *beneficiary)
+                .deposit_asset(AllCounted(1), beneficiary)
                 .build();
 
             let xcm = Xcm::<()>::builder()
@@ -45,8 +45,7 @@ mod ink_library {
                     remote_xcm,
                 )
                 .build();
-            let versioned = VersionedXcm::from(xcm);
-            ink::sol::DynBytes(versioned.encode())
+            VersionedXcm::from(xcm).encode()
         }
     }
 }
