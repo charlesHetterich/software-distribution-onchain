@@ -13,18 +13,29 @@ Instantiate the contract (not sure what that means tbh... we just uploaded it ?)
 ```
 cargo contract instantiate \
   --constructor new \
-  --args true \
   --url ws://127.0.0.1:9944 \
   --suri //Alice \
-  --salt 0x00
+  --salt 0x00 \
+  -x
 ```
 
 Finally, you can call to the contract
 ```
+# TODO! figure out a functional contract call to test out
 cargo contract call \
   --message flip \
   --url ws://127.0.0.1:9944 \
   --suri //Alice \
   --contract <CONTRACT_ADDRESS>
+
+
+cargo contract call \
+  --contract <CONTRACT_ADDRESS> \
+  --message teleport \
+  --args <para_id> 0x<32-bytes-beneficiary> <amount> \
+  --suri //Alice \
+  --url ws://127.0.0.1:9944 \
+  -x
+
 ```
 
