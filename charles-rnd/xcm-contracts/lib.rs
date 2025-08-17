@@ -4,15 +4,16 @@
 mod ink_library {
     use ink::{
         prelude::vec::Vec,
-        xcm::{latest::AssetTransferFilter, prelude::*},
+        xcm::{
+            latest::AssetTransferFilter,
+            latest::{send_xcm, SendError},
+            prelude::*,
+        },
     };
-
-    use parity_scale_codec::Encode;
 
     #[ink(storage)]
     pub struct InkLibrary {}
 
-    type Bytes = Vec<u8>; //ink::sol::DynBytes;
     type Bytes32 = [u8; 32]; //ink::sol::FixedBytes<32>;
 
     impl InkLibrary {
@@ -22,8 +23,13 @@ mod ink_library {
             Self {}
         }
 
-        #[ink(message)]
-        pub fn teleport(&self, para_id: u32, beneficiary: Bytes32, amount: u128) -> Bytes {
+        #[ink(message, payable)]
+        pub fn teleport(
+            &mut self,
+            para_id: u32,
+            beneficiary: Bytes32,
+            amount: u128,
+        ) -> Result<(), SendError> {
             let destination = Location::new(1, [Parachain(para_id)]);
             let remote_fees =
                 AssetTransferFilter::Teleport(Definite((Parent, amount.saturating_div(10)).into()));
@@ -38,14 +44,15 @@ mod ink_library {
                 .withdraw_asset((Parent, amount))
                 .pay_fees((Parent, amount.saturating_div(10)))
                 .initiate_transfer(
-                    destination,
+                    destination.clone(),
                     remote_fees,
                     preserve_origin,
                     transfer_assets,
                     remote_xcm,
                 )
                 .build();
-            VersionedXcm::from(xcm).encode()
+
+            send_xcm::<()>(destination, xcm).map(|_| ())
         }
     }
 }
