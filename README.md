@@ -1,6 +1,26 @@
-# software-distribution-onchain
+# Software Distribution & Digital Rights Management (DRM) on-chain.
 
-TODO
+This would be a replacement for things like the <AppStore, Google Play Store, Steam, etc>. Our intention currently has been to focus on games (Steam), but there is no reason this cannot extend to general software distribution.
+
+The main service these platforms provide you, a a game publisher, in exchange for usually ~30% of all sales is: they ensure that (1) only people who buy your <game> can play it, and (2) someone who buys it cannot *easily* redistribute it to to the rest of the world for free.
+
+### How do we convert this Web2 service into a Web3 service?
+#### (1) NFT collections on AssetHub
+- When a game publisher `publish(...)`'s a game, a new *NFT collection* is created
+- When a player `buy(...)`'s a game, a new *NFT* is *minted* from that game's NFT collection. This NFT is affectively the players access key to this software
+
+#### (2) Open-Source DRM (off-chain)
+- Here's a simplified TL;DR of what DRM is and how it works in Web2.
+    - a) I am a game publisher, and I compile my game into an executable
+    - b) I give my game executable to steam, and they wrap my executable in some logic which checks their database "did <player> buy <game>? if yes, run the game." creating a new *wrapped game executable*
+    - c) Steam then obfuscates this executable, making it difficult to reverse engineer & extract the core game (basically, just jumble up the code a ton without changing its logic)
+    - d) Now, anyone in the world can download this executable, yet only players who have bought <game> through steam can play <game>
+- A Web3 solution does exactly the same thing except
+    - Step (b) checks AssetHub NFT's instead of a Steam API
+    - The game publisher runs steps (b) & (c) themselves
+
+#### (3) Decentralized storage on Crust
+- When a game publisher `publish(...)`'s a game, instead of publishing to a centralized database, it is stored on Crust for anyone to download. (But only *owners* can actually play it)
 
 ## Motivation
 
