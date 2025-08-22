@@ -1,8 +1,13 @@
-npm install
+# install subkey
+cargo install subkey
+
+pnpm install
 
 # Add PAPI descriptors
 npx papi add ksmcc3 -n ksmcc3
 npx papi add ksmcc3_asset_hub -n ksmcc3_asset_hub
+npx papi add paseo -n paseo
+npx papi add paseo_asset_hub -n paseo_asset_hub
 
 # Crust web sockets
 # wss://rpc.crust.network
