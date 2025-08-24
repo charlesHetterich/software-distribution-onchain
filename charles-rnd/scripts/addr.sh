@@ -1,2 +1,2 @@
 mkdir -p ~/.polkadot
-subkey generate --scheme ecdsa --network polkadot --output-type json > ~/.polkadot/address.json
+subkey generate --scheme sr25519 --network polkadot --output-type json > ~/.polkadot/address.json

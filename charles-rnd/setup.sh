@@ -8,6 +8,7 @@ npx papi add ksmcc3 -n ksmcc3
 npx papi add ksmcc3_asset_hub -n ksmcc3_asset_hub
 npx papi add paseo -n paseo
 npx papi add paseo_asset_hub -n paseo_asset_hub
+npx papi add passethub -w wss://passet-hub-paseo.ibp.network # Development SC Paseo Assethub
 
 # Crust web sockets
 # wss://rpc.crust.network

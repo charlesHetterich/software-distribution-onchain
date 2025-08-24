@@ -2,6 +2,7 @@ import { API } from "apis";
 import { DEPLOY } from "addresses";
 import * as fs from "fs";
 import chalk from "chalk";
+import { deploy, validate } from "deploy";
 
 const link = (text: string, url: string) =>
     `\u001B]8;;${url}\u0007${text}\u001B]8;;\u0007`; // OSC-8
@@ -11,11 +12,16 @@ async function main() {
     console.log(
         "Get balance from the",
         chalk.blue.bold(
-            link("Paseo AssetHub faucet", "https://faucet.polkadot.io/")
+            link(
+                "Paseo AssetHub faucet",
+                "https://faucet.polkadot.io/?parachain=1111"
+            )
         )
     );
 
-    console.log("Balance: ", chalk.green(await DEPLOY.balance()));
+    console.log("Balance: ", chalk.green(await DEPLOY.balancev2()));
+    // deploy();
+    validate();
 }
 main().catch(console.error);
 

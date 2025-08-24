@@ -5,6 +5,9 @@ import { createClient } from "polkadot-api";
 import { getInkClient } from "polkadot-api/ink";
 import { createReviveSdk } from "@polkadot-api/sdk-ink";
 import { getSmProvider } from "polkadot-api/sm-provider";
+import { getWsProvider } from "polkadot-api/ws-provider/web";
+import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
+
 import * as SPECS from "polkadot-api/chains";
 import { start } from "polkadot-api/smoldot";
 
@@ -26,6 +29,12 @@ async function initAPIs() {
         potentialRelayChains: [kusama, paseo],
     });
 
+    const paseoAssetHubSC = createClient(
+        withPolkadotSdkCompat(
+            getWsProvider("wss://passet-hub-paseo.ibp.network")
+        )
+    );
+
     return {
         kusama: createClient(getSmProvider(kusama)).getTypedApi(DESC.ksmcc3),
         kusamaAssetHub: createClient(getSmProvider(kusamaAssetHub)).getTypedApi(
@@ -35,6 +44,7 @@ async function initAPIs() {
         paseoAssetHub: createClient(getSmProvider(paseoAssetHub)).getTypedApi(
             DESC.paseo_asset_hub
         ),
+        paseoAssetHubSC: paseoAssetHubSC.getTypedApi(DESC.passethub),
         crust: null, // TODO!
     };
 }

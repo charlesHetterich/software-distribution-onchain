@@ -30,5 +30,12 @@ class Account {
         );
         return Number(raw.data.free) / 10 ** 10;
     }
+
+    async balancev2() {
+        const raw = await API.paseoAssetHubSC.query.System.Account.getValue(
+            this.account.ss58Address
+        );
+        return Number(raw.data.free) / 10 ** 10;
+    }
 }
 export const DEPLOY = new Account();
