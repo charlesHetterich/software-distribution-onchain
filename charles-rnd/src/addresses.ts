@@ -2,7 +2,7 @@ import { API } from "apis";
 import * as fs from "fs";
 import * as os from "os";
 
-type Account = {
+type AccountJSON = {
     accountId: string;
     networkId: string;
     publicKey: string;
@@ -12,23 +12,23 @@ type Account = {
     ss58PublicKey: string;
 };
 
-const DEPLOY: Account = JSON.parse(
-    fs.readFileSync(os.homedir() + "/.polkadot/address.json", "utf-8")
-);
-console.log("Using address:", DEPLOY.secretSeed);
+class Account {
+    account: AccountJSON;
 
-console.log(
-    "Balance: ",
-    await API.paseoAssetHub.query.Balances.Account.getValue(DEPLOY.ss58Address)
-);
+    constructor() {
+        this.account = JSON.parse(
+            fs.readFileSync(os.homedir() + "/.polkadot/address.json", "utf-8")
+        );
+    }
 
-console.log(
-    "get balance at asset hub faucet: https://faucet.polkadot.io/?parachain=1000"
-);
-
-export { DEPLOY };
-
-// 146E1z36kcMFQX8Nh8LzRRgoJ4fUaJCTFkVgfbY1qefBgkyG
-// 1DdqDYEAC3RofEDPwBARLTPSqpV6tUW8Gh7b7HzjVm1LdQDC
-// 0x022ee9f234f3b840de499b0f7aeec4424f11834d3ebb2735e3c1bf85a3483bff5b
-// 0x88b0bf113f2c2de69e1d6cc1656c72df4679596fba23bc6c01179dddd0d60d35
+    /**
+     * Fetch the balance of this account on the Paseo Asset Hub
+     */
+    async balance() {
+        const raw = await API.paseoAssetHub.query.System.Account.getValue(
+            this.account.ss58Address
+        );
+        return Number(raw.data.free) / 10 ** 10;
+    }
+}
+export const DEPLOY = new Account();
