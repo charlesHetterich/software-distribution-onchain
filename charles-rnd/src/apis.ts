@@ -8,11 +8,12 @@ import { getSmProvider } from "polkadot-api/sm-provider";
 import * as SPECS from "polkadot-api/chains";
 import { start } from "polkadot-api/smoldot";
 
+const DEBUG = process.env.DEBUG === "true";
 const relayIDs = ["ksmcc3", "paseo"] as const;
 const paraIDs = ["ksmcc3_asset_hub", "paseo_asset_hub"] as const;
 
 async function initAPIs() {
-    const smoldot = start();
+    const smoldot = start({ logCallback: DEBUG ? undefined : () => {} });
     const kusama = await smoldot.addChain({ chainSpec: SPECS.ksmcc3 });
     const paseo = await smoldot.addChain({ chainSpec: SPECS.paseo });
 
