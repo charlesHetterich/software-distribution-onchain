@@ -24,7 +24,9 @@ The main service these platforms provide you, a a game publisher, in exchange fo
 
 ## Motivation
 
-TODO
+- For publishers: remove middlemen (Steam, AppStore, Google Play Store, etc) and facilitate fairer distribution.
+- For players: in some instances, avoid having to lose their access if somehow the platform shuts down / goes out of business.
+- More importantly, provide an improved ownership and consumer rights system.
 
 ### Security Risk Assessment
 
@@ -36,7 +38,9 @@ TODO
 
 ## Limitations and Future Development
 
-TODO
+- We intentionally do not allow for the transfer of ownership of the software (represented by an NFT) to primarily give publishers more control over their software's pricing, and not to lose out on potential revenue because of resale.
+- Therefore, users must understand that losing their private keys means losing access to the software.
+- There are ways to provide a recovery mechanism for users (e.g. [Kusama Social Recovery](https://wiki.polkadot.com/kusama/kusama-social-recovery/)), but it is out of scope for this project.
 
 ## Resources / Papers
 **Crust (storage)**
