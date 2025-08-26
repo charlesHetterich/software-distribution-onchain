@@ -5,11 +5,13 @@ mod ink_library {
     use ink::{
         prelude::vec::Vec,
         xcm::{
-            latest::AssetTransferFilter,
-            latest::{send_xcm, SendError},
+            latest::{send_xcm, AssetTransferFilter, SendError},
             prelude::*,
+            DoubleEncoded,
         },
     };
+
+    const ASSET_HUB_PARA: u32 = 1000; // Paseo Asset Hub (para id)
 
     #[ink(storage)]
     pub struct InkLibrary {}
@@ -21,6 +23,58 @@ mod ink_library {
         #[ink(constructor)]
         pub fn new() -> Self {
             Self {}
+        }
+
+        fn xcm_transact_inner(
+            as_account: Option<[u8; 32]>,
+            call: Vec<u8>,
+            ref_time: u64,
+            proof_size: u64,
+            fee: u128,
+        ) -> Result<(), SendError> {
+            let dest = Location::new(1, [Parachain(ASSET_HUB_PARA)]);
+            let w = Weight::from_parts(ref_time, proof_size);
+            let fee_asset = (Here, fee);
+
+            // Build XCM program
+            let mut instrs: Vec<Instruction<()>> = Vec::new();
+
+            // Pay for execution on Asset Hub
+            instrs.push(WithdrawAsset(fee_asset.clone().into()));
+            instrs.push(BuyExecution {
+                fees: fee_asset.into(),
+                weight_limit: WeightLimit::Limited(w),
+            });
+
+            // Optionally change origin to a specific AccountId32 on Asset Hub
+            if let Some(id32) = as_account {
+                instrs.push(DescendOrigin(
+                    // Origin becomes this AccountId32 on the destination
+                    Junctions::X1(
+                        [AccountId32 {
+                            network: None,
+                            id: id32,
+                        }]
+                        .into(),
+                    ),
+                ));
+                // With DescendOrigin, the origin kind for Transact is the XCM origin:
+                instrs.push(Transact {
+                    origin_kind: OriginKind::Xcm,
+                    fallback_max_weight: w.into(),
+                    call: call.into(),
+                });
+            } else {
+                // Execute as the parachain *sovereign account* on Asset Hub
+                instrs.push(Transact {
+                    origin_kind: OriginKind::SovereignAccount,
+                    fallback_max_weight: w.into(),
+                    call: call.into(),
+                });
+            }
+
+            let xcm = Xcm::<()>(instrs);
+            send_xcm::<()>(dest, xcm).map(|_| ())
         }
 
         #[ink(message, payable)]
