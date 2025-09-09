@@ -47,5 +47,6 @@ func main() {
 
 	fmt.Println("\n✅ Polkadot API connection test successful!")
 
+	// Go version of https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/#interacting-with-your-contract
 	contract.RunContractTest()
 }
