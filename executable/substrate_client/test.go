@@ -1,5 +1,4 @@
-// File: client/test_client.go
-package client
+package substrate_client
 
 import (
 	"fmt"

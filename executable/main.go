@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"software-distribution-onchain/client"
-	"software-distribution-onchain/contract"
+	"software-distribution-onchain/evm_client"
 	"software-distribution-onchain/fingerprint"
+	"software-distribution-onchain/substrate_client"
 )
 
 func main() {
@@ -32,7 +32,7 @@ func main() {
 	fmt.Println("===================")
 
 	// Create test client
-	testClient, err := client.NewTestClient(client.PASEO_ASSET_HUB_RPC)
+	testClient, err := substrate_client.NewTestClient(substrate_client.PASEO_ASSET_HUB_RPC)
 	if err != nil {
 		fmt.Printf("❌ Failed to create client: %v\n", err)
 		os.Exit(1)
@@ -48,5 +48,5 @@ func main() {
 	fmt.Println("\n✅ Polkadot API connection test successful!")
 
 	// Go version of https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/#interacting-with-your-contract
-	contract.RunContractTest()
+	evm_client.RunContractTest()
 }

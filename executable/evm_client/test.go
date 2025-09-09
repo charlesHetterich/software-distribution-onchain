@@ -1,4 +1,4 @@
-package contract
+package evm_client
 
 import (
 	"context"
